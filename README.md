@@ -1,0 +1,1 @@
+# winmerge-diff-exporter
