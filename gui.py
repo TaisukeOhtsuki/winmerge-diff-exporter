@@ -120,7 +120,7 @@ class DiffApp(QWidget):
     def __init__(self) -> None:
         super().__init__()
         self.setWindowTitle("WinMerge Diff to Excel")
-        self.setGeometry(100, 100, 800, 360)
+        self.setGeometry(100, 100, 800, 500)  # Increased height from 360 to 500
 
         self.base_paths: List[str] = []
         self.latest_paths: List[str] = []
@@ -175,13 +175,20 @@ class DiffApp(QWidget):
         self.setStyleSheet("""
             QWidget {
                 background-color: #fdfdfd;
+                color: #000;
                 font-family: Helvetica, Arial, sans-serif;
                 font-size: 14px;
+            }
+            QLabel {
+                color: #000;
+                background-color: transparent;
             }
             QLineEdit, QTextEdit {
                 border: 1px solid #ccc;
                 padding: 6px;
                 border-radius: 4px;
+                color: #000;
+                background-color: #fff;
             }
             QPushButton {
                 background-color: #000;
