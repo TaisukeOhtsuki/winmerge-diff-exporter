@@ -7,7 +7,9 @@ from PyQt6.QtWidgets import (
 from PyQt6.QtGui import QFont, QPainter, QLinearGradient, QColor
 from PyQt6.QtCore import Qt, QThread, pyqtSignal, QObject, QTimer, QRect
 
-from winmergexlsx import WinMergeXlsx
+from src.core.winmergexlsx import WinMergeXlsx
+from src.core.config import config
+from src.core.exceptions import ValidationError
 
 class DropLineEdit(QLineEdit):
     paths_dropped = pyqtSignal(list)
@@ -100,6 +102,8 @@ class Worker(QObject):
             self.progress_signal.emit(progress)
 
     def run(self) -> None:
+        from src.core.common import logger
+        
         try:
             def log_callback(msg: str, value: int = None) -> None:
                 self.emit_log(msg, value)
@@ -111,32 +115,47 @@ class Worker(QObject):
             diff.generate()
             self.emit_log(f"Completed! Output: {self.output}", 100)
         except Exception as e:
-            self.error_signal.emit(str(e))
+            error_msg = str(e)
+            logger.error(f"Worker thread error: {error_msg}", exc_info=True)
+            self.error_signal.emit(error_msg)
         finally:
             self.finished.emit()
 
 
 class DiffApp(QWidget):
+    """Main application window"""
+    
     def __init__(self) -> None:
         super().__init__()
-        self.setWindowTitle("WinMerge Diff to Excel")
-        self.setGeometry(100, 100, 800, 500)  # Increased height from 360 to 500
+        self._init_window()
+        self._init_data()
+        self._init_ui()
 
+    def _init_window(self) -> None:
+        """Initialize window properties"""
+        self.setWindowTitle(config.ui.window_title)
+        self.setGeometry(*config.ui.window_geometry)
+
+    def _init_data(self) -> None:
+        """Initialize data structures"""
         self.base_paths: List[str] = []
         self.latest_paths: List[str] = []
-
         self.animation_timer = QTimer()
         self.animation_value = 0
+        self.worker_thread = None
 
+    def _init_ui(self) -> None:
+        """Initialize user interface"""
         self.setup_widgets()
         self.setup_layout()
         self.setup_connections()
         self.apply_style()
 
     def setup_widgets(self) -> None:
+        """Setup UI widgets"""
         self.base_input = DropLineEdit(self.base_paths)
         self.latest_input = DropLineEdit(self.latest_paths)
-        self.output_input = QLineEdit("output.xlsx")
+        self.output_input = QLineEdit(config.ui.default_output_file)
 
         self.log_text = QTextEdit()
         self.log_text.setReadOnly(True)
@@ -246,49 +265,116 @@ class DiffApp(QWidget):
             self.progress_bar.setComplete()
 
     def start_progress_animation(self) -> None:
-        self.animation_value = 0
-        self.animation_timer.timeout.connect(self.animate_progress)
-        self.animation_timer.start(50)
+        """Start progress bar animation"""
+        if not self.animation_timer.isActive():
+            self.animation_value = 0
+            self.animation_timer.timeout.connect(self.animate_progress)
+            self.animation_timer.start(config.ui.progress_animation_interval)
 
     def animate_progress(self) -> None:
-        self.animation_value = (self.animation_value + 2) % 100
+        """Animate progress bar"""
+        self.animation_value = (self.animation_value + config.ui.progress_animation_step) % 100
         self.progress_bar.setValue(self.animation_value)
 
     def stop_progress_animation(self) -> None:
-        self.animation_timer.stop()
+        """Stop progress bar animation safely"""
+        if self.animation_timer.isActive():
+            self.animation_timer.stop()
         try:
             self.animation_timer.timeout.disconnect(self.animate_progress)
-        except TypeError:
+        except (TypeError, RuntimeError):
+            # Already disconnected or timer doesn't exist
             pass
 
     def run_process(self) -> None:
-        if not self.base_paths or not self.latest_paths:
-            QMessageBox.critical(self, "Error", "Please specify both folders.")
-            return
+        """Run the diff comparison process"""
+        try:
+            self._validate_inputs()
+            self._start_worker()
+        except ValidationError as e:
+            QMessageBox.critical(self, "Validation Error", str(e))
+        except Exception as e:
+            QMessageBox.critical(self, "Error", f"Failed to start process: {str(e)}")
 
+    def _validate_inputs(self) -> None:
+        """Validate user inputs"""
+        if not self.base_paths:
+            raise ValidationError("Please specify base folder.")
+        if not self.latest_paths:
+            raise ValidationError("Please specify comparison target folder.")
+        if not self.output_input.text().strip():
+            raise ValidationError("Please specify output file name.")
+
+    def _start_worker(self) -> None:
+        """Start worker thread"""
         self.run_button.setEnabled(False)
         self.progress_bar.setValue(0)
         self.progress_bar.setVisible(True)
         self.start_progress_animation()
         self.log("Starting process...")
 
-        self.thread = QThread()
+        self.worker_thread = QThread()
         self.worker = Worker(
             self.base_paths[0],
             self.latest_paths[0],
             self.output_input.text()
         )
-        self.worker.moveToThread(self.thread)
+        self.worker.moveToThread(self.worker_thread)
 
-        self.thread.started.connect(self.worker.run)
+        # Connect signals
+        self.worker_thread.started.connect(self.worker.run)
         self.worker.log_signal.connect(self.log)
         self.worker.progress_signal.connect(self.update_progress)
-        self.worker.error_signal.connect(lambda msg: QMessageBox.critical(self, "Error", msg))
-        self.worker.finished.connect(self.thread.quit)
-        self.worker.finished.connect(self.worker.deleteLater)
-        self.thread.finished.connect(self.thread.deleteLater)
-        self.thread.finished.connect(lambda: self.run_button.setEnabled(True))
+        self.worker.error_signal.connect(self._handle_error)
+        self.worker.finished.connect(self._cleanup_worker)
 
-        self.thread.start()
+        self.worker_thread.start()
+
+    def _handle_error(self, error_msg: str) -> None:
+        """Handle worker error"""
+        # Check if it's a permission error and provide helpful message
+        if "Permission denied" in error_msg or "close" in error_msg.lower():
+            detailed_msg = (
+                f"{error_msg}\n\n"
+                "Tips:\n"
+                "? Close the Excel file if it's currently open\n"
+                "? Check if another process is using the file\n"
+                "? Try saving to a different location"
+            )
+            QMessageBox.critical(self, "File Access Error", detailed_msg)
+        else:
+            QMessageBox.critical(self, "Process Error", error_msg)
+        self._cleanup_worker()
+
+    def _cleanup_worker(self) -> None:
+        """Clean up worker thread"""
+        # Stop animation first (before thread cleanup)
+        self.stop_progress_animation()
+        
+        if self.worker_thread:
+            self.worker_thread.quit()
+            self.worker_thread.wait(2000)  # Wait max 2 seconds
+            self.worker_thread = None
+        
+        self.run_button.setEnabled(True)
+
+    def closeEvent(self, event) -> None:
+        """Handle window close event"""
+        from src.core.common import logger
+        
+        # Stop any running animation
+        self.stop_progress_animation()
+        
+        # Clean up worker thread if running
+        if self.worker_thread and self.worker_thread.isRunning():
+            logger.info("Stopping worker thread...")
+            self.worker_thread.quit()
+            if not self.worker_thread.wait(3000):  # Wait max 3 seconds
+                logger.warning("Worker thread did not stop gracefully, terminating...")
+                self.worker_thread.terminate()
+                self.worker_thread.wait()
+        
+        logger.info("Application closing")
+        event.accept()
 
 
