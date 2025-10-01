@@ -2,7 +2,9 @@
 
 フォルダ間の差分を**WinMerge**で比較し、結果を見やすい**Excelファイル**として出力するGUIアプリケーションです。
 
-<img width="1002" height="522" alt="image" src="https:/## 技術仕様
+<img width="1002" height="522" alt="image" src="https://github.com/user-attachments/assets/396c3c7a-3868-4199-898b-61229ab489f9" />
+
+## 技術仕様
 
 ### アーキテクチャ
 - **GUIフレームワーク**: PyQt6 6.9.1
