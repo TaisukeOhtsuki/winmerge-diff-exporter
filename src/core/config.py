@@ -61,7 +61,7 @@ class UIConfig:
 class DiffConfig:
     """Diff processing configuration"""
     context_lines: int = 4
-    yellow_color: str = 'FFC0C0C0'
+    yellow_color: str = 'FFEFCB05'  # WinMerge diff color (yellow)
     sheet_start_index: int = 2
 
 

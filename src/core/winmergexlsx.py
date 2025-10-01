@@ -68,6 +68,9 @@ class WinMergeXlsx:
         
         self.path_manager = PathManager()
         
+        # Sheet name to original filename mapping
+        self.sheet_name_to_filename = {}
+        
         self._validate_inputs()
         self._setup()
 
@@ -84,7 +87,7 @@ class WinMergeXlsx:
             self._normalize_files()
             self._generate_html_by_winmerge()
             self._convert_html_to_xlsx()
-            DiffDetailSheetCreator(str(self.output)).generate()
+            DiffDetailSheetCreator(str(self.output), sheet_name_to_filename=self.sheet_name_to_filename).generate()
             self.log("Generation completed successfully")
         except Exception as e:
             logger.error(f"Generation failed: {e}")
@@ -285,18 +288,119 @@ class WinMergeXlsx:
                 f"Please close '{output_path.name}' in Excel and try again."
             )
 
+    def _extract_filename_from_stem(self, stem: str) -> str:
+        """
+        Extract actual filename from HTML file stem.
+        
+        HTML files from WinMerge use pattern: folder1_folder2_..._filename
+        We need to identify where the path ends and filename begins.
+        
+        Strategy:
+        1. Look for file extension (contains '.')
+        2. Scan backwards from extension to find filename pattern
+        3. Consider common folder names (modules, ctrl, tool, etc.) as path components
+        
+        Examples:
+            "modcommon_modules_SPM_SEQ_spm_tbl_rinse.t" -> "spm_tbl_rinse.t"
+            "sc2stb_ctrl_v4_LINK_CTRLA_SP3_2.l" -> "CTRLA_SP3_2.l"
+            "sc2stb_modules_SPM_tool_gui_Gui_Res_spm_en-US.rc" -> "spm_en-US.rc"
+            "sc2stb_etc_cset_file.SP3" -> "cset_file.SP3"
+        """
+        parts = stem.split('_')
+        
+        # Common folder names that are NOT part of filenames
+        folder_keywords = {
+            'modules', 'ctrl', 'tool', 'gui', 'etc', 'src', 'include',
+            'lib', 'bin', 'obj', 'SEQ', 'u', 'v4', 'LINK', 'Res',
+            'modcommon', 'sc2stb', 'Gui'
+        }
+        
+        # Find the extension position (last part with '.')
+        ext_index = -1
+        for i in range(len(parts) - 1, -1, -1):
+            if '.' in parts[i]:
+                ext_index = i
+                break
+        
+        if ext_index == -1:
+            # No extension found, return last part
+            return parts[-1]
+        
+        # Scan backwards from extension to find start of filename
+        # A filename typically starts after a known folder keyword
+        filename_start = 0
+        
+        for i in range(ext_index, -1, -1):
+            part = parts[i]
+            
+            # Check if this part is a folder keyword
+            if part in folder_keywords:
+                filename_start = i + 1
+                break
+            
+            # If we reach the beginning, include from start
+            if i == 0:
+                filename_start = 0
+        
+        # Special case: if filename_start is too close to extension, 
+        # take at least 2 parts before extension
+        if ext_index - filename_start < 1:
+            filename_start = max(0, ext_index - 1)
+        
+        # Build filename from identified parts
+        filename_parts = parts[filename_start:ext_index + 1]
+        filename = '_'.join(filename_parts)
+        
+        return filename
+
     def _convert_diff_html_files(self, converter) -> None:
         """Convert all diff HTML files to Excel sheets"""
         html_files = sorted(self.output_html_files.glob('**/*.html'))
         self.log(f"Processing {len(html_files)} diff HTML files...")
         
+        # Track sheet names to handle duplicates
+        used_sheet_names = set()
+        
         for count, html_file in enumerate(html_files, start=1):
             # Generate sheet name from file
-            sheet_name = html_file.stem
+            original_name = html_file.stem
             
-            # Limit sheet name to 31 characters (Excel limit)
+            # Extract filename from path-like stem more reliably
+            # HTML file names follow pattern: folder1_folder2_..._filename.ext
+            # We need to find where the path ends and filename begins
+            filename = self._extract_filename_from_stem(original_name)
+            
+            logger.info(f"[DEBUG] HTML file: {html_file.name}")
+            logger.info(f"[DEBUG] HTML stem (original): '{original_name}'")
+            logger.info(f"[DEBUG] Extracted filename: '{filename}'")
+            
+            # Use filename as sheet name (more readable than full path)
+            sheet_name = filename
+            
+            # Handle Excel's 31 character limit for sheet names
             if len(sheet_name) > 31:
+                # Truncate and add counter
                 sheet_name = sheet_name[:28] + f"_{count}"
+                logger.info(f"[DEBUG] Sheet name too long, truncated: '{filename}' -> '{sheet_name}'")
+            
+            # Handle duplicate sheet names
+            original_sheet_name = sheet_name
+            suffix = 1
+            while sheet_name in used_sheet_names:
+                # If duplicate, add/increment suffix
+                if len(original_sheet_name) > 28:
+                    sheet_name = original_sheet_name[:27] + f"_{suffix}"
+                else:
+                    sheet_name = f"{original_sheet_name}_{suffix}"
+                suffix += 1
+                logger.info(f"[DEBUG] Duplicate sheet name, adjusted: '{original_sheet_name}' -> '{sheet_name}'")
+            
+            used_sheet_names.add(sheet_name)
+            
+            # Store mapping from sheet name to actual filename
+            # (in this case, they should be the same or very similar)
+            self.sheet_name_to_filename[sheet_name] = filename
+            logger.info(f"[DEBUG] Final sheet name: '{sheet_name}'")
             
             converter.convert_html_file(html_file, self.wb, sheet_name)
             

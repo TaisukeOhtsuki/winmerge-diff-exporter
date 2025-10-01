@@ -16,13 +16,14 @@ timer_DDSC = Timer("DiffDetailSheetCreator")
 class DiffDetailSheetCreator:
     """Creates detailed diff sheets from Excel workbook"""
     
-    def __init__(self, file_path: str, start_index: int = None, context_lines: int = None):
+    def __init__(self, file_path: str, start_index: int = None, context_lines: int = None, sheet_name_to_filename: dict = None):
         self.file_path = file_path
         self.wb = load_workbook(self.file_path)
         self.start_index = start_index or config.diff.sheet_start_index
         self.context_lines = context_lines or config.diff.context_lines
         self.detail_ws = self.wb.create_sheet(index=0, title='compare')
         self.row_cursor = 2
+        self.sheet_name_to_filename = sheet_name_to_filename or {}
         
         logger.info(f"DiffDetailSheetCreator initialized for: {file_path}")
 
@@ -32,10 +33,12 @@ class DiffDetailSheetCreator:
         
         try:
             worksheets_to_process = self.wb.worksheets[self.start_index:]
-            logger.info(f"Processing {len(worksheets_to_process)} worksheets")
+            logger.info(f"Processing {len(worksheets_to_process)} worksheets for compare sheet")
             
             for ws in worksheets_to_process:
+                logger.info(f"[DEBUG] Processing sheet: '{ws.title}'")
                 file_name = self._extract_filename(ws.title)
+                logger.info(f"[DEBUG] Extracted filename: '{file_name}'")
                 self._write_filename_label(file_name)
                 self._process_sheet(ws)
             
@@ -50,8 +53,30 @@ class DiffDetailSheetCreator:
             timer_DDSC.stop()
 
     def _extract_filename(self, sheet_name: str) -> str:
-        """Extract filename from sheet name"""
-        return sheet_name.replace('_', '\\')
+        """Extract filename from sheet name using mapping or fallback logic"""
+        logger.info(f"[DEBUG] _extract_filename input: '{sheet_name}'")
+        
+        # First, try to use the mapping provided by WinMergeXlsx
+        if sheet_name in self.sheet_name_to_filename:
+            filename = self.sheet_name_to_filename[sheet_name]
+            logger.info(f"[DEBUG] Found in mapping: '{sheet_name}' -> '{filename}'")
+            return filename
+        
+        # Fallback: Extract from sheet name
+        # Sheet name format: folder1_folder2_..._filename
+        # Convert underscores to backslashes temporarily
+        path_like = sheet_name.replace('_', '\\')
+        logger.info(f"[DEBUG] After underscore replacement: '{path_like}'")
+        
+        # Split by backslash and get the last component (filename)
+        if '\\' in path_like:
+            result = path_like.split('\\')[-1]
+            logger.info(f"[DEBUG] Extracted last component: '{result}'")
+            return result
+        
+        # If no backslash, return as-is (it's already just a filename)
+        logger.info(f"[DEBUG] No backslash found, returning as-is: '{sheet_name}'")
+        return sheet_name
 
     def _write_filename_label(self, file_name: str) -> None:
         """Write filename label in the detail sheet"""
@@ -92,15 +117,28 @@ class DiffDetailSheetCreator:
         diff_rows = set()
         yellow_color = config.diff.yellow_color
         
+        # Track unique colors for debugging
+        unique_colors = set()
+        
         for row in range(config.excel.diff_start_row, max_row + 1):
             for col_config in config.diff_formats['code']:
                 col_letter = col_config['col']
                 col = column_index_from_string(col_letter)
                 cell = ws.cell(row=row, column=col)
                 
-                if cell.fill.start_color.rgb == yellow_color:
+                # Collect color information for debugging
+                cell_color = cell.fill.start_color.rgb
+                if cell_color and cell_color not in ('FFFFFFFF', '00000000', None):
+                    unique_colors.add(cell_color)
+                
+                if cell_color == yellow_color:
                     diff_rows.add(row)
                     break
+        
+        # Log detected colors for debugging
+        if unique_colors:
+            logger.info(f"[DEBUG] Sheet '{ws.title}' - Unique colors found: {unique_colors}")
+            logger.info(f"[DEBUG] Looking for color: '{yellow_color}'")
         
         timer_DDSC.stop()
         return sorted(diff_rows)
