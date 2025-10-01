@@ -1,96 +1,96 @@
 # WinMerge Diff to Excel Exporter
 
-ƒtƒHƒ‹ƒ_ŠÔ‚Ì·•ª‚ð**WinMerge**‚Å”äŠr‚µAŒ‹‰Ê‚ðŒ©‚â‚·‚¢**Excelƒtƒ@ƒCƒ‹**‚Æ‚µ‚Äo—Í‚·‚éGUIƒAƒvƒŠƒP[ƒVƒ‡ƒ“‚Å‚·B
+ãƒ•ã‚©ãƒ«ãƒ€é–“ã®å·®åˆ†ã‚’**WinMerge**ã§æ¯”è¼ƒã—ã€çµæžœã‚’è¦‹ã‚„ã™ã„**Excelãƒ•ã‚¡ã‚¤ãƒ«**ã¨ã—ã¦å‡ºåŠ›ã™ã‚‹GUIã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ã§ã™ã€‚
 
-<img width="1002" height="522" alt="image" src="https:/## ‹ZpŽd—l
+<img width="1002" height="522" alt="image" src="https:/## æŠ€è¡“ä»•æ§˜
 
-### ƒA[ƒLƒeƒNƒ`ƒƒ
-- **GUIƒtƒŒ[ƒ€ƒ[ƒN**: PyQt6 6.9.1
-- **Excel‘€ì**: openpyxl 3.1.5 (ƒˆPythonACOM•s—v)
-- **HTML‰ðÍ**: BeautifulSoup4 4.12.3 + lxml 5.3.0
-- **·•ª”äŠr**: WinMerge (ŠO•”ƒvƒƒZƒXAHTMLo—ÍŒ`Ž®)
-- **ƒ}ƒ‹ƒ`ƒXƒŒƒbƒh**: QThreadŽg—p‚ÅUIƒuƒƒbƒN‰ñ”ð
-- **ƒGƒ‰[ƒnƒ“ƒhƒŠƒ“ƒO**: 3’iŠK‚Ìƒtƒ@ƒCƒ‹•Û‘¶í—ª
+### ã‚¢ãƒ¼ã‚­ãƒ†ã‚¯ãƒãƒ£
+- **GUIãƒ•ãƒ¬ãƒ¼ãƒ ãƒ¯ãƒ¼ã‚¯**: PyQt6 6.9.1
+- **Excelæ“ä½œ**: openpyxl 3.1.5 (ç´”ç²‹Pythonã€COMä¸è¦)
+- **HTMLè§£æž**: BeautifulSoup4 4.12.3 + lxml 5.3.0
+- **å·®åˆ†æ¯”è¼ƒ**: WinMerge (å¤–éƒ¨ãƒ—ãƒ­ã‚»ã‚¹ã€HTMLå‡ºåŠ›å½¢å¼)
+- **ãƒžãƒ«ãƒã‚¹ãƒ¬ãƒƒãƒ‰**: QThreadä½¿ç”¨ã§UIãƒ–ãƒ­ãƒƒã‚¯å›žé¿
+- **ã‚¨ãƒ©ãƒ¼ãƒãƒ³ãƒ‰ãƒªãƒ³ã‚°**: 3æ®µéšŽã®ãƒ•ã‚¡ã‚¤ãƒ«ä¿å­˜æˆ¦ç•¥
 
-### Žå‚ÈÝŒvƒpƒ^[ƒ“
-- **MVC•ª—£**: UIAƒrƒWƒlƒXƒƒWƒbƒNAƒf[ƒ^ˆ—‚ð•ª—£
-- **ƒVƒOƒiƒ‹/ƒXƒƒbƒg**: Qt”ñ“¯Šú’ÊMƒpƒ^[ƒ“
-- **ƒ[ƒJ[ƒXƒŒƒbƒh**: ’·ŽžŠÔˆ—‚ðƒoƒbƒNƒOƒ‰ƒEƒ“ƒh‚ÅŽÀs
-- **ƒŠƒgƒ‰ƒCƒƒJƒjƒYƒ€**: ƒtƒ@ƒCƒ‹ƒƒbƒNŽž‚ÌŽ©“®ÄŽŽs
+### ä¸»ãªè¨­è¨ˆãƒ‘ã‚¿ãƒ¼ãƒ³
+- **MVCåˆ†é›¢**: UIã€ãƒ“ã‚¸ãƒã‚¹ãƒ­ã‚¸ãƒƒã‚¯ã€ãƒ‡ãƒ¼ã‚¿å‡¦ç†ã‚’åˆ†é›¢
+- **ã‚·ã‚°ãƒŠãƒ«/ã‚¹ãƒ­ãƒƒãƒˆ**: QtéžåŒæœŸé€šä¿¡ãƒ‘ã‚¿ãƒ¼ãƒ³
+- **ãƒ¯ãƒ¼ã‚«ãƒ¼ã‚¹ãƒ¬ãƒƒãƒ‰**: é•·æ™‚é–“å‡¦ç†ã‚’ãƒãƒƒã‚¯ã‚°ãƒ©ã‚¦ãƒ³ãƒ‰ã§å®Ÿè¡Œ
+- **ãƒªãƒˆãƒ©ã‚¤ãƒ¡ã‚«ãƒ‹ã‚ºãƒ **: ãƒ•ã‚¡ã‚¤ãƒ«ãƒ­ãƒƒã‚¯æ™‚ã®è‡ªå‹•å†è©¦è¡Œ
 
-### ƒtƒ@ƒCƒ‹–¼’ŠoƒAƒ‹ƒSƒŠƒYƒ€
-WinMerge‚ÌHTMLo—Íƒtƒ@ƒCƒ‹–¼i`folder1_folder2_..._filename`Œ`Ž®j‚©‚çAŠmŽÀ‚Éƒtƒ@ƒCƒ‹–¼‚ð’ŠoF
-- ƒtƒHƒ‹ƒ_ƒL[ƒ[ƒhŒŸoi`modules`, `ctrl`, `tool`, `gui`, `etc` ‚È‚Çj
-- Šg’£Žq‚©‚ç‹t‡ƒXƒLƒƒƒ“
-- ƒtƒHƒ‹ƒ_ƒL[ƒ[ƒh‚ÌŽŸ‚©‚çƒtƒ@ƒCƒ‹–¼‚Æ‚µ‚Ä”FŽ¯
-- —á: `sc2stb_ctrl_v4_LINK_CTRLA_SP3_2.l` ¨ `CTRLA_SP3_2.l`
+### ãƒ•ã‚¡ã‚¤ãƒ«åæŠ½å‡ºã‚¢ãƒ«ã‚´ãƒªã‚ºãƒ 
+WinMergeã®HTMLå‡ºåŠ›ãƒ•ã‚¡ã‚¤ãƒ«åï¼ˆ`folder1_folder2_..._filename`å½¢å¼ï¼‰ã‹ã‚‰ã€ç¢ºå®Ÿã«ãƒ•ã‚¡ã‚¤ãƒ«åã‚’æŠ½å‡ºï¼š
+- ãƒ•ã‚©ãƒ«ãƒ€ã‚­ãƒ¼ãƒ¯ãƒ¼ãƒ‰æ¤œå‡ºï¼ˆ`modules`, `ctrl`, `tool`, `gui`, `etc` ãªã©ï¼‰
+- æ‹¡å¼µå­ã‹ã‚‰é€†é †ã‚¹ã‚­ãƒ£ãƒ³
+- ãƒ•ã‚©ãƒ«ãƒ€ã‚­ãƒ¼ãƒ¯ãƒ¼ãƒ‰ã®æ¬¡ã‹ã‚‰ãƒ•ã‚¡ã‚¤ãƒ«åã¨ã—ã¦èªè­˜
+- ä¾‹: `sc2stb_ctrl_v4_LINK_CTRLA_SP3_2.l` â†’ `CTRLA_SP3_2.l`
 
-### ·•ªŒŸoƒƒWƒbƒN
-- WinMerge‚Ì·•ªF `FFEFCB05` (‰©F) ‚ðŒŸo
-- ƒRƒ“ƒeƒLƒXƒgs”: ‘OŒã4s
-- —×Ú‚·‚é·•ªƒuƒƒbƒN‚ðŽ©“®ƒ}[ƒW
-- ƒtƒHƒ‹ƒ_s‚ÍƒŠƒ“ƒN—L–³‚ÅŽ¯•Ê‚µ‚ÄœŠOr-attachments/assets/396c3c7a-3868-4199-898b-61229ab489f9" />
+### å·®åˆ†æ¤œå‡ºãƒ­ã‚¸ãƒƒã‚¯
+- WinMergeã®å·®åˆ†è‰² `FFEFCB05` (é»„è‰²) ã‚’æ¤œå‡º
+- ã‚³ãƒ³ãƒ†ã‚­ã‚¹ãƒˆè¡Œæ•°: å‰å¾Œ4è¡Œ
+- éš£æŽ¥ã™ã‚‹å·®åˆ†ãƒ–ãƒ­ãƒƒã‚¯ã‚’è‡ªå‹•ãƒžãƒ¼ã‚¸
+- ãƒ•ã‚©ãƒ«ãƒ€è¡Œã¯ãƒªãƒ³ã‚¯æœ‰ç„¡ã§è­˜åˆ¥ã—ã¦é™¤å¤–r-attachments/assets/396c3c7a-3868-4199-898b-61229ab489f9" />
 
-## –ÚŽŸ
+## ç›®æ¬¡
 
-- [Žå‚È‹@”\](#Žå‚È‹@”\)
-- [ƒVƒXƒeƒ€—vŒ](#ƒVƒXƒeƒ€—vŒ)
-- [ƒCƒ“ƒXƒg[ƒ‹•û–@](#ƒCƒ“ƒXƒg[ƒ‹•û–@)
-- [Žg—p•û–@](#Žg—p•û–@)
-- [ƒvƒƒWƒFƒNƒg\¬](#ƒvƒƒWƒFƒNƒg\¬)
-- [‹ZpŽd—l](#‹ZpŽd—l)
-- [Ý’è‚ÌƒJƒXƒ^ƒ}ƒCƒY](#Ý’è‚ÌƒJƒXƒ^ƒ}ƒCƒY)
-- [ƒgƒ‰ƒuƒ‹ƒVƒ…[ƒeƒBƒ“ƒO](#ƒgƒ‰ƒuƒ‹ƒVƒ…[ƒeƒBƒ“ƒO)
-- [ŠJ”­](#ŠJ”­)
-- [•ÏX—š—ð](#•ÏX—š—ð)
-- [ƒ‰ƒCƒZƒ“ƒX](#ƒ‰ƒCƒZƒ“ƒX)
+- [ä¸»ãªæ©Ÿèƒ½](#ä¸»ãªæ©Ÿèƒ½)
+- [ã‚·ã‚¹ãƒ†ãƒ è¦ä»¶](#ã‚·ã‚¹ãƒ†ãƒ è¦ä»¶)
+- [ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«æ–¹æ³•](#ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«æ–¹æ³•)
+- [ä½¿ç”¨æ–¹æ³•](#ä½¿ç”¨æ–¹æ³•)
+- [ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆæ§‹æˆ](#ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆæ§‹æˆ)
+- [æŠ€è¡“ä»•æ§˜](#æŠ€è¡“ä»•æ§˜)
+- [è¨­å®šã®ã‚«ã‚¹ã‚¿ãƒžã‚¤ã‚º](#è¨­å®šã®ã‚«ã‚¹ã‚¿ãƒžã‚¤ã‚º)
+- [ãƒˆãƒ©ãƒ–ãƒ«ã‚·ãƒ¥ãƒ¼ãƒ†ã‚£ãƒ³ã‚°](#ãƒˆãƒ©ãƒ–ãƒ«ã‚·ãƒ¥ãƒ¼ãƒ†ã‚£ãƒ³ã‚°)
+- [é–‹ç™º](#é–‹ç™º)
+- [å¤‰æ›´å±¥æ­´](#å¤‰æ›´å±¥æ­´)
+- [ãƒ©ã‚¤ã‚»ãƒ³ã‚¹](#ãƒ©ã‚¤ã‚»ãƒ³ã‚¹)
 
-## Žå‚È‹@”\
+## ä¸»ãªæ©Ÿèƒ½
 
-- **ƒtƒHƒ‹ƒ_ŠÔ‚Ì·•ª”äŠr**: 2‚Â‚ÌƒtƒHƒ‹ƒ_‚ð”äŠr‚µA’Ç‰ÁE•ÏXEíœ‚³‚ê‚½ƒtƒ@ƒCƒ‹‚ðŽ©“®ŒŸo
-- **ExcelŒ`Ž®‚Åo—Í**: ”äŠrŒ‹‰Ê‚ðŒ©‚â‚·‚¢Excelƒtƒ@ƒCƒ‹‚Æ‚µ‚Ä•Û‘¶
-- **Ú×‚È·•ª•\Ž¦**: ƒtƒ@ƒCƒ‹“à—e‚ÌsƒŒƒxƒ‹‚Å‚Ì·•ª‚ðF•ª‚¯‚µ‚Ä•\Ž¦
-- **ƒhƒ‰ƒbƒO&ƒhƒƒbƒv‘Î‰ž**: ƒtƒHƒ‹ƒ_‚ðGUI‚É’¼Úƒhƒ‰ƒbƒO‚µ‚ÄŠÈ’P‘I‘ð
-- **ƒvƒƒOƒŒƒXƒo[**: ˆ—isó‹µ‚ðƒŠƒAƒ‹ƒ^ƒCƒ€‚Å•\Ž¦
-- **•¡”ƒV[ƒg¶¬**: 
-  - **compareƒV[ƒg**: ·•ªƒuƒƒbƒN‚Ì‚Ý‚ð’Šo‚µ‚½Ú×•\Ž¦iƒtƒ@ƒCƒ‹–¼ƒ‰ƒxƒ‹•t‚«j
-  - **ŒÂ•Êƒtƒ@ƒCƒ‹ƒV[ƒg**: Šeƒtƒ@ƒCƒ‹‚ÌŠ®‘S‚È·•ªiƒtƒ@ƒCƒ‹–¼‚ªƒV[ƒg–¼j
-  - **SummaryƒV[ƒg**: ƒtƒ@ƒCƒ‹ˆê——‚Æ•ÏXó‹µ‚ÌŠT—viƒtƒHƒ‹ƒ_s‚ðŽ©“®œŠOj
+- **ãƒ•ã‚©ãƒ«ãƒ€é–“ã®å·®åˆ†æ¯”è¼ƒ**: 2ã¤ã®ãƒ•ã‚©ãƒ«ãƒ€ã‚’æ¯”è¼ƒã—ã€è¿½åŠ ãƒ»å¤‰æ›´ãƒ»å‰Šé™¤ã•ã‚ŒãŸãƒ•ã‚¡ã‚¤ãƒ«ã‚’è‡ªå‹•æ¤œå‡º
+- **Excelå½¢å¼ã§å‡ºåŠ›**: æ¯”è¼ƒçµæžœã‚’è¦‹ã‚„ã™ã„Excelãƒ•ã‚¡ã‚¤ãƒ«ã¨ã—ã¦ä¿å­˜
+- **è©³ç´°ãªå·®åˆ†è¡¨ç¤º**: ãƒ•ã‚¡ã‚¤ãƒ«å†…å®¹ã®è¡Œãƒ¬ãƒ™ãƒ«ã§ã®å·®åˆ†ã‚’è‰²åˆ†ã‘ã—ã¦è¡¨ç¤º
+- **ãƒ‰ãƒ©ãƒƒã‚°&ãƒ‰ãƒ­ãƒƒãƒ—å¯¾å¿œ**: ãƒ•ã‚©ãƒ«ãƒ€ã‚’GUIã«ç›´æŽ¥ãƒ‰ãƒ©ãƒƒã‚°ã—ã¦ç°¡å˜é¸æŠž
+- **ãƒ—ãƒ­ã‚°ãƒ¬ã‚¹ãƒãƒ¼**: å‡¦ç†é€²è¡ŒçŠ¶æ³ã‚’ãƒªã‚¢ãƒ«ã‚¿ã‚¤ãƒ ã§è¡¨ç¤º
+- **è¤‡æ•°ã‚·ãƒ¼ãƒˆç”Ÿæˆ**: 
+  - **compareã‚·ãƒ¼ãƒˆ**: å·®åˆ†ãƒ–ãƒ­ãƒƒã‚¯ã®ã¿ã‚’æŠ½å‡ºã—ãŸè©³ç´°è¡¨ç¤ºï¼ˆãƒ•ã‚¡ã‚¤ãƒ«åãƒ©ãƒ™ãƒ«ä»˜ãï¼‰
+  - **å€‹åˆ¥ãƒ•ã‚¡ã‚¤ãƒ«ã‚·ãƒ¼ãƒˆ**: å„ãƒ•ã‚¡ã‚¤ãƒ«ã®å®Œå…¨ãªå·®åˆ†ï¼ˆãƒ•ã‚¡ã‚¤ãƒ«åãŒã‚·ãƒ¼ãƒˆåï¼‰
+  - **Summaryã‚·ãƒ¼ãƒˆ**: ãƒ•ã‚¡ã‚¤ãƒ«ä¸€è¦§ã¨å¤‰æ›´çŠ¶æ³ã®æ¦‚è¦ï¼ˆãƒ•ã‚©ãƒ«ãƒ€è¡Œã‚’è‡ªå‹•é™¤å¤–ï¼‰
 
-## ƒVƒXƒeƒ€—vŒ
+## ã‚·ã‚¹ãƒ†ãƒ è¦ä»¶
 
-- **Python 3.8ˆÈã** (Python 3.13.3‚Å“®ìŠm”FÏ‚Ý)
-- **WinMerge** (ƒfƒtƒHƒ‹ƒgƒpƒX: `C:\Program Files\WinMerge\WinMergeU.exe`)
+- **Python 3.8ä»¥ä¸Š** (Python 3.13.3ã§å‹•ä½œç¢ºèªæ¸ˆã¿)
+- **WinMerge** (ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆãƒ‘ã‚¹: `C:\Program Files\WinMerge\WinMergeU.exe`)
 
-### ? ƒo[ƒWƒ‡ƒ“ 2.0 ‚ÌŽå‚È‰ü‘P“_
+### ? ãƒãƒ¼ã‚¸ãƒ§ãƒ³ 2.0 ã®ä¸»ãªæ”¹å–„ç‚¹
 
-**Microsoft Excel ‚ÌƒCƒ“ƒXƒg[ƒ‹‚Í•s—v‚É‚È‚è‚Ü‚µ‚½I**
+**Microsoft Excel ã®ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ã¯ä¸è¦ã«ãªã‚Šã¾ã—ãŸï¼**
 
-- ? **Excel‚È‚µ‚Å“®ì**: Excel‚ªƒCƒ“ƒXƒg[ƒ‹‚³‚ê‚Ä‚¢‚È‚­‚Ä‚àŠ®‘S‚É“®ì
-- ? **ƒtƒ@ƒCƒ‹ƒƒbƒN‘Îô**: Excel‚Åƒtƒ@ƒCƒ‹‚ðŠJ‚¢‚Ä‚¢‚Ä‚àŽÀs‰Â”\
-  - 3’iŠK‚Ì•Û‘¶í—ªi’¼Ú•Û‘¶¨ˆêŽžƒtƒ@ƒCƒ‹Œo—R¨ƒ^ƒCƒ€ƒXƒ^ƒ“ƒv•t‚«j
-- ? **‚‘¬‚ÅˆÀ’è**: COMˆË‘¶‚ð”rœ‚µAƒˆ‚ÈPythonƒ‰ƒCƒuƒ‰ƒŠ‚Åˆ—
-- ? **‰ü‘P‚³‚ê‚½‘ÌÙ**: 
-  - cŒrü‚Ì‚Ý‚ÅƒXƒbƒLƒŠ‚µ‚½Œ©‚½–Úi‰¡Œrü‚È‚µj
-  - s”Ô†—ñ‚Ìu.v‚ðŽ©“®íœ
-  - ·•ª‚ª‚ ‚és‚Ì‚Ý”wŒiF‚ð•\Ž¦
-- ? **³Šm‚Èƒtƒ@ƒCƒ‹–¼•\Ž¦**:
-  - ƒV[ƒg–¼‚ªƒtƒ@ƒCƒ‹–¼‚ÉiƒpƒXŒ`Ž®‚Å‚Í‚È‚­j
-  - compareƒV[ƒg‚Å‚à³‚µ‚¢ƒtƒ@ƒCƒ‹–¼‚ð•\Ž¦
-  - ’·‚¢ƒpƒX–¼‚Å‚àŠmŽÀ‚Éƒtƒ@ƒCƒ‹–¼‚ð’Šo
-- ? **“KØ‚È·•ªŒŸo**:
-  - WinMerge‚Ì‰©F·•ªs‚ð³Šm‚ÉŒŸo
-  - SummaryƒV[ƒg‚©‚çƒtƒHƒ‹ƒ_s‚ðŽ©“®œŠO
+-  **Excelãªã—ã§å‹•ä½œ**: ExcelãŒã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ã•ã‚Œã¦ã„ãªãã¦ã‚‚å®Œå…¨ã«å‹•ä½œ
+-  **ãƒ•ã‚¡ã‚¤ãƒ«ãƒ­ãƒƒã‚¯å¯¾ç­–**: Excelã§ãƒ•ã‚¡ã‚¤ãƒ«ã‚’é–‹ã„ã¦ã„ã¦ã‚‚å®Ÿè¡Œå¯èƒ½
+  - 3æ®µéšŽã®ä¿å­˜æˆ¦ç•¥ï¼ˆç›´æŽ¥ä¿å­˜â†’ä¸€æ™‚ãƒ•ã‚¡ã‚¤ãƒ«çµŒç”±â†’ã‚¿ã‚¤ãƒ ã‚¹ã‚¿ãƒ³ãƒ—ä»˜ãï¼‰
+-  **é«˜é€Ÿã§å®‰å®š**: COMä¾å­˜ã‚’æŽ’é™¤ã—ã€ç´”ç²‹ãªPythonãƒ©ã‚¤ãƒ–ãƒ©ãƒªã§å‡¦ç†
+-  **æ”¹å–„ã•ã‚ŒãŸä½“è£**: 
+  - ç¸¦ç½«ç·šã®ã¿ã§ã‚¹ãƒƒã‚­ãƒªã—ãŸè¦‹ãŸç›®ï¼ˆæ¨ªç½«ç·šãªã—ï¼‰
+  - è¡Œç•ªå·åˆ—ã®ã€Œ.ã€ã‚’è‡ªå‹•å‰Šé™¤
+  - å·®åˆ†ãŒã‚ã‚‹è¡Œã®ã¿èƒŒæ™¯è‰²ã‚’è¡¨ç¤º
+-  **æ­£ç¢ºãªãƒ•ã‚¡ã‚¤ãƒ«åè¡¨ç¤º**:
+  - ã‚·ãƒ¼ãƒˆåãŒãƒ•ã‚¡ã‚¤ãƒ«åã«ï¼ˆãƒ‘ã‚¹å½¢å¼ã§ã¯ãªãï¼‰
+  - compareã‚·ãƒ¼ãƒˆã§ã‚‚æ­£ã—ã„ãƒ•ã‚¡ã‚¤ãƒ«åã‚’è¡¨ç¤º
+  - é•·ã„ãƒ‘ã‚¹åã§ã‚‚ç¢ºå®Ÿã«ãƒ•ã‚¡ã‚¤ãƒ«åã‚’æŠ½å‡º
+-  **é©åˆ‡ãªå·®åˆ†æ¤œå‡º**:
+  - WinMergeã®é»„è‰²å·®åˆ†è¡Œã‚’æ­£ç¢ºã«æ¤œå‡º
+  - Summaryã‚·ãƒ¼ãƒˆã‹ã‚‰ãƒ•ã‚©ãƒ«ãƒ€è¡Œã‚’è‡ªå‹•é™¤å¤–
 
-## ƒCƒ“ƒXƒg[ƒ‹•û–@
+## ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«æ–¹æ³•
 
-### 1. ƒŠƒ|ƒWƒgƒŠ‚ÌƒNƒ[ƒ“
+### 1. ãƒªãƒã‚¸ãƒˆãƒªã®ã‚¯ãƒ­ãƒ¼ãƒ³
 ```bash
 git clone https://github.com/TaisukeOhtsuki/winmerge-diff-exporter.git
 cd winmerge-diff-exporter
 ```
 
-### 2. ‰¼‘zŠÂ‹«‚Ìì¬i„§j
+### 2. ä»®æƒ³ç’°å¢ƒã®ä½œæˆï¼ˆæŽ¨å¥¨ï¼‰
 ```bash
 python -m venv venv
 
@@ -101,207 +101,203 @@ venv\Scripts\activate
 source venv/bin/activate
 ```
 
-### 3. ˆË‘¶ŠÖŒW‚ÌƒCƒ“ƒXƒg[ƒ‹
+### 3. ä¾å­˜é–¢ä¿‚ã®ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«
 ```bash
 pip install -r requirements.txt
 ```
 
-**•K—v‚Èƒ‰ƒCƒuƒ‰ƒŠ:**
-- PyQt6 6.9.1 - GUI ƒtƒŒ[ƒ€ƒ[ƒN
-- openpyxl 3.1.5 - Excel ƒtƒ@ƒCƒ‹‘€ì
-- beautifulsoup4 4.12.3 - HTML ƒp[ƒX
-- lxml 5.3.0 - XML/HTML ƒp[ƒT[
+**å¿…è¦ãªãƒ©ã‚¤ãƒ–ãƒ©ãƒª:**
+- PyQt6 6.9.1 - GUI ãƒ•ãƒ¬ãƒ¼ãƒ ãƒ¯ãƒ¼ã‚¯
+- openpyxl 3.1.5 - Excel ãƒ•ã‚¡ã‚¤ãƒ«æ“ä½œ
+- beautifulsoup4 4.12.3 - HTML ãƒ‘ãƒ¼ã‚¹
+- lxml 5.3.0 - XML/HTML ãƒ‘ãƒ¼ã‚µãƒ¼
 
-### 4. WinMerge‚ÌƒCƒ“ƒXƒg[ƒ‹
-WinMerge‚ª–¢ƒCƒ“ƒXƒg[ƒ‹‚Ìê‡‚ÍA[ŒöŽ®ƒTƒCƒg](https://winmerge.org/)‚©‚çƒ_ƒEƒ“ƒ[ƒh‚µ‚ÄƒCƒ“ƒXƒg[ƒ‹‚µ‚Ä‚­‚¾‚³‚¢B
+### 4. WinMergeã®ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«
+WinMergeãŒæœªã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ã®å ´åˆã¯ã€[å…¬å¼ã‚µã‚¤ãƒˆ](https://winmerge.org/)ã‹ã‚‰ãƒ€ã‚¦ãƒ³ãƒ­ãƒ¼ãƒ‰ã—ã¦ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ã—ã¦ãã ã•ã„ã€‚
 
-**ƒfƒtƒHƒ‹ƒgƒCƒ“ƒXƒg[ƒ‹ƒpƒX:**
+**ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ãƒ‘ã‚¹:**
 ```
 C:\Program Files\WinMerge\WinMergeU.exe
 ```
 
-ƒJƒXƒ^ƒ€ƒpƒX‚Ìê‡‚Í `src/core/config.py` ‚ÅÝ’è‚ð•ÏX‚Å‚«‚Ü‚·B
+ã‚«ã‚¹ã‚¿ãƒ ãƒ‘ã‚¹ã®å ´åˆã¯ `src/core/config.py` ã§è¨­å®šã‚’å¤‰æ›´ã§ãã¾ã™ã€‚
 
-## Žg—p•û–@
+## ä½¿ç”¨æ–¹æ³•
 
-### 1. ƒAƒvƒŠƒP[ƒVƒ‡ƒ“‚Ì‹N“®
+### 1. ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ã®èµ·å‹•
 ```bash
 python main.py
 ```
 
-### 2. ƒtƒHƒ‹ƒ_‚Ì‘I‘ð
-- **Base Folder**: ”äŠrŒ³‚ÌƒtƒHƒ‹ƒ_‚ð‘I‘ð
-- **Comparison Target Folder**: ”äŠræ‚ÌƒtƒHƒ‹ƒ_‚ð‘I‘ð  
-- **Output File**: o—Í‚·‚éExcelƒtƒ@ƒCƒ‹–¼‚ðŽw’è
+### 2. ãƒ•ã‚©ãƒ«ãƒ€ã®é¸æŠž
+- **Base Folder**: æ¯”è¼ƒå…ƒã®ãƒ•ã‚©ãƒ«ãƒ€ã‚’é¸æŠž
+- **Comparison Target Folder**: æ¯”è¼ƒå…ˆã®ãƒ•ã‚©ãƒ«ãƒ€ã‚’é¸æŠž  
+- **Output File**: å‡ºåŠ›ã™ã‚‹Excelãƒ•ã‚¡ã‚¤ãƒ«åã‚’æŒ‡å®š
 
-### 3. ŽÀs
-uRun (Compare and Export to Excel)vƒ{ƒ^ƒ“‚ðƒNƒŠƒbƒN‚µ‚Ä”äŠr‚ðŠJŽn‚µ‚Ü‚·B
+### 3. å®Ÿè¡Œ
+ã€ŒRun (Compare and Export to Excel)ã€ãƒœã‚¿ãƒ³ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦æ¯”è¼ƒã‚’é–‹å§‹ã—ã¾ã™ã€‚
 
-### 4. Œ‹‰Ê‚ÌŠm”F
-Žw’è‚µ‚½Excelƒtƒ@ƒCƒ‹‚ª¶¬‚³‚êAˆÈ‰º‚ÌƒV[ƒg‚ªŠÜ‚Ü‚ê‚Ü‚·F
-- **compareƒV[ƒg**: ·•ªƒuƒƒbƒN‚Ì‚Ý‚ð’ŠoiƒRƒ“ƒeƒLƒXƒg4s•t‚«Aƒtƒ@ƒCƒ‹–¼ƒ‰ƒxƒ‹•\Ž¦j
-- **SummaryƒV[ƒg**: ƒtƒ@ƒCƒ‹ˆê——‚Æ•ÏXó‹µ‚ÌŠT—viƒtƒHƒ‹ƒ_s‚ÍœŠOj
-- **ŒÂ•Êƒtƒ@ƒCƒ‹ƒV[ƒg**: Šeƒtƒ@ƒCƒ‹‚ÌŠ®‘S‚È·•ªiƒV[ƒg–¼‚Íƒtƒ@ƒCƒ‹–¼As”Ô†EF•t‚«j
+### 4. çµæžœã®ç¢ºèª
+æŒ‡å®šã—ãŸExcelãƒ•ã‚¡ã‚¤ãƒ«ãŒç”Ÿæˆã•ã‚Œã€ä»¥ä¸‹ã®ã‚·ãƒ¼ãƒˆãŒå«ã¾ã‚Œã¾ã™ï¼š
+- **compareã‚·ãƒ¼ãƒˆ**: å·®åˆ†ãƒ–ãƒ­ãƒƒã‚¯ã®ã¿ã‚’æŠ½å‡ºï¼ˆã‚³ãƒ³ãƒ†ã‚­ã‚¹ãƒˆ4è¡Œä»˜ãã€ãƒ•ã‚¡ã‚¤ãƒ«åãƒ©ãƒ™ãƒ«è¡¨ç¤ºï¼‰
+- **Summaryã‚·ãƒ¼ãƒˆ**: ãƒ•ã‚¡ã‚¤ãƒ«ä¸€è¦§ã¨å¤‰æ›´çŠ¶æ³ã®æ¦‚è¦ï¼ˆãƒ•ã‚©ãƒ«ãƒ€è¡Œã¯é™¤å¤–ï¼‰
+- **å€‹åˆ¥ãƒ•ã‚¡ã‚¤ãƒ«ã‚·ãƒ¼ãƒˆ**: å„ãƒ•ã‚¡ã‚¤ãƒ«ã®å®Œå…¨ãªå·®åˆ†ï¼ˆã‚·ãƒ¼ãƒˆåã¯ãƒ•ã‚¡ã‚¤ãƒ«åã€è¡Œç•ªå·ãƒ»è‰²ä»˜ãï¼‰
 
-### 5. ƒtƒ@ƒCƒ‹ƒƒbƒNŽž‚Ì“®ì
-o—Íƒtƒ@ƒCƒ‹‚ªŠJ‚©‚ê‚Ä‚¢‚éê‡AˆÈ‰º‚Ìí—ª‚Å•Û‘¶‚ðŽŽ‚Ý‚Ü‚·F
-1. **’¼Ú•Û‘¶** (5‰ñƒŠƒgƒ‰ƒCA’iŠK“I‘Ò‹@)
-2. **ˆêŽžƒtƒ@ƒCƒ‹Œo—R** (ƒAƒgƒ~ƒbƒN‚È–¼‘O•ÏX)
-3. **ƒ^ƒCƒ€ƒXƒ^ƒ“ƒv•t‚«** (—á: `output_20250930_143052.xlsx`)
+### 5. ãƒ•ã‚¡ã‚¤ãƒ«ãƒ­ãƒƒã‚¯æ™‚ã®å‹•ä½œ
+å‡ºåŠ›ãƒ•ã‚¡ã‚¤ãƒ«ãŒé–‹ã‹ã‚Œã¦ã„ã‚‹å ´åˆã€ä»¥ä¸‹ã®æˆ¦ç•¥ã§ä¿å­˜ã‚’è©¦ã¿ã¾ã™ï¼š
+1. **ç›´æŽ¥ä¿å­˜** (5å›žãƒªãƒˆãƒ©ã‚¤ã€æ®µéšŽçš„å¾…æ©Ÿ)
+2. **ä¸€æ™‚ãƒ•ã‚¡ã‚¤ãƒ«çµŒç”±** (ã‚¢ãƒˆãƒŸãƒƒã‚¯ãªåå‰å¤‰æ›´)
+3. **ã‚¿ã‚¤ãƒ ã‚¹ã‚¿ãƒ³ãƒ—ä»˜ã** (ä¾‹: `output_20250930_143052.xlsx`)
 
-## ƒvƒƒWƒFƒNƒg\¬
+## ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆæ§‹æˆ
 
 ```
 winmerge-diff-exporter/
-„¥„Ÿ„Ÿ main.py                 # ƒAƒvƒŠƒP[ƒVƒ‡ƒ“ƒGƒ“ƒgƒŠ[ƒ|ƒCƒ“ƒg
-„¥„Ÿ„Ÿ requirements.txt        # PythonˆË‘¶ƒpƒbƒP[ƒW
-„¥„Ÿ„Ÿ qt.conf                # QtÝ’è
-„¥„Ÿ„Ÿ LICENSE                # MITƒ‰ƒCƒZƒ“ƒX
-„¥„Ÿ„Ÿ README.md              # ‚±‚Ìƒtƒ@ƒCƒ‹
-„ 
-„¥„Ÿ„Ÿ src/                   # ƒ\[ƒXƒR[ƒh
-„    „¥„Ÿ„Ÿ core/              # ƒRƒAƒrƒWƒlƒXƒƒWƒbƒN
-„    „    „¥„Ÿ„Ÿ common.py      # ƒƒK[‚Æƒ^ƒCƒ}[
-„    „    „¥„Ÿ„Ÿ config.py      # Ý’èŠÇ—
-„    „    „¥„Ÿ„Ÿ exceptions.py  # ƒJƒXƒ^ƒ€—áŠO
-„    „    „¥„Ÿ„Ÿ utils.py       # ƒtƒ@ƒCƒ‹‘€ì‚ÆExcel®Œ`
-„    „    „¥„Ÿ„Ÿ winmergexlsx.py           # WinMerge“‡
-„    „    „¤„Ÿ„Ÿ diffdetailsheetcreater.py # ·•ªÚ×ƒV[ƒgì¬
-„    „ 
-„    „¥„Ÿ„Ÿ converters/        # ƒtƒ@ƒCƒ‹•ÏŠ·
-„    „    „¤„Ÿ„Ÿ html_to_excel.py  # HTML¨Excel•ÏŠ·iCOM•s—vj
-„    „ 
-„    „¤„Ÿ„Ÿ ui/                # ƒ†[ƒU[ƒCƒ“ƒ^[ƒtƒF[ƒX
-„        „¤„Ÿ„Ÿ gui.py         # PyQt6 GUI
-„ 
-„¥„Ÿ„Ÿ docs/                  # ƒhƒLƒ…ƒƒ“ƒg
-„    „¥„Ÿ„Ÿ PROJECT_STRUCTURE.md       # ƒvƒƒWƒFƒNƒg\‘¢Ú×
-„    „¥„Ÿ„Ÿ EXCEL_COM_REMOVAL.md       # Excel COMíœ‚Ì‹ZpÚ×
-„    „¥„Ÿ„Ÿ FILE_LOCK_COMPLETE_FIX.md  # ƒtƒ@ƒCƒ‹ƒƒbƒN‘Îô
-„    „¥„Ÿ„Ÿ REFACTORING_SUMMARY.md     # ƒŠƒtƒ@ƒNƒ^ƒŠƒ“ƒO—š—ð
-„    „¤„Ÿ„Ÿ RELEASE_NOTES_v2.0.md      # ƒŠƒŠ[ƒXƒm[ƒg
-„ 
-„¥„Ÿ„Ÿ tests/                 # ƒ†ƒjƒbƒgƒeƒXƒg
-„¥„Ÿ„Ÿ output/                # o—Íƒtƒ@ƒCƒ‹
-„¤„Ÿ„Ÿ venv/                  # Python‰¼‘zŠÂ‹«
+â”œâ”€â”€ main.py                 # ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ã‚¨ãƒ³ãƒˆãƒªãƒ¼ãƒã‚¤ãƒ³ãƒˆ
+â”œâ”€â”€ requirements.txt        # Pythonä¾å­˜ãƒ‘ãƒƒã‚±ãƒ¼ã‚¸
+â”œâ”€â”€ qt.conf                # Qtè¨­å®š
+â”œâ”€â”€ LICENSE                # MITãƒ©ã‚¤ã‚»ãƒ³ã‚¹
+â”œâ”€â”€ README.md              # ã“ã®ãƒ•ã‚¡ã‚¤ãƒ«
+â”‚
+â”œâ”€â”€ src/                   # ã‚½ãƒ¼ã‚¹ã‚³ãƒ¼ãƒ‰
+â”‚   â”œâ”€â”€ core/              # ã‚³ã‚¢ãƒ“ã‚¸ãƒã‚¹ãƒ­ã‚¸ãƒƒã‚¯
+â”‚   â”‚   â”œâ”€â”€ common.py      # ãƒ­ã‚¬ãƒ¼ã¨ã‚¿ã‚¤ãƒžãƒ¼
+â”‚   â”‚   â”œâ”€â”€ config.py      # è¨­å®šç®¡ç†
+â”‚   â”‚   â”œâ”€â”€ exceptions.py  # ã‚«ã‚¹ã‚¿ãƒ ä¾‹å¤–
+â”‚   â”‚   â”œâ”€â”€ utils.py       # ãƒ•ã‚¡ã‚¤ãƒ«æ“ä½œã¨Excelæ•´å½¢
+â”‚   â”‚   â”œâ”€â”€ winmergexlsx.py           # WinMergeçµ±åˆ
+â”‚   â”‚   â””â”€â”€ diffdetailsheetcreater.py # å·®åˆ†è©³ç´°ã‚·ãƒ¼ãƒˆä½œæˆ
+â”‚   â”‚
+â”‚   â”œâ”€â”€ converters/        # ãƒ•ã‚¡ã‚¤ãƒ«å¤‰æ›
+â”‚   â”‚   â””â”€â”€ html_to_excel.py  # HTMLâ†’Excelå¤‰æ›ï¼ˆCOMä¸è¦ï¼‰
+â”‚   â”‚
+â”‚   â””â”€â”€ ui/                # ãƒ¦ãƒ¼ã‚¶ãƒ¼ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ãƒ¼ã‚¹
+â”‚       â””â”€â”€ gui.py         # PyQt6 GUI
+â”‚
+â”œâ”€â”€ docs/                  # ãƒ‰ã‚­ãƒ¥ãƒ¡ãƒ³ãƒˆ
+    â”œâ”€â”€ PROJECT_STRUCTURE.md       # ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆæ§‹é€ è©³ç´°
+    â”œâ”€â”€ EXCEL_COM_REMOVAL.md       # Excel COMå‰Šé™¤ã®æŠ€è¡“è©³ç´°
+    â”œâ”€â”€ FILE_LOCK_COMPLETE_FIX.md  # ãƒ•ã‚¡ã‚¤ãƒ«ãƒ­ãƒƒã‚¯å¯¾ç­–
+    â”œâ”€â”€ REFACTORING_SUMMARY.md     # ãƒªãƒ•ã‚¡ã‚¯ã‚¿ãƒªãƒ³ã‚°å±¥æ­´
+    â””â”€â”€ RELEASE_NOTES_v2.0.md      # ãƒªãƒªãƒ¼ã‚¹ãƒŽãƒ¼ãƒˆ
 ```
 
-Ú×‚Í [`docs/PROJECT_STRUCTURE.md`](docs/PROJECT_STRUCTURE.md) ‚ðŽQÆ‚µ‚Ä‚­‚¾‚³‚¢B
+è©³ç´°ã¯ [`docs/PROJECT_STRUCTURE.md`](docs/PROJECT_STRUCTURE.md) ã‚’å‚ç…§ã—ã¦ãã ã•ã„ã€‚
 
-## ‹ZpŽd—l
+## æŠ€è¡“ä»•æ§˜
 
-### ƒA[ƒLƒeƒNƒ`ƒƒ
-- **GUIƒtƒŒ[ƒ€ƒ[ƒN**: PyQt6 6.9.1
-- **Excel‘€ì**: openpyxl 3.1.5 (ƒˆPythonACOM•s—v)
-- **HTML‰ðÍ**: BeautifulSoup4 4.12.3 + lxml 5.3.0
-- **·•ª”äŠr**: WinMerge (ŠO•”ƒvƒƒZƒXAHTMLo—ÍŒ`Ž®)
-- **ƒ}ƒ‹ƒ`ƒXƒŒƒbƒh**: QThreadŽg—p‚ÅUIƒuƒƒbƒN‰ñ”ð
-- **ƒGƒ‰[ƒnƒ“ƒhƒŠƒ“ƒO**: 3’iŠK‚Ìƒtƒ@ƒCƒ‹•Û‘¶í—ª
+### ã‚¢ãƒ¼ã‚­ãƒ†ã‚¯ãƒãƒ£
+- **GUIãƒ•ãƒ¬ãƒ¼ãƒ ãƒ¯ãƒ¼ã‚¯**: PyQt6 6.9.1
+- **Excelæ“ä½œ**: openpyxl 3.1.5 (ç´”ç²‹Pythonã€COMä¸è¦)
+- **HTMLè§£æž**: BeautifulSoup4 4.12.3 + lxml 5.3.0
+- **å·®åˆ†æ¯”è¼ƒ**: WinMerge (å¤–éƒ¨ãƒ—ãƒ­ã‚»ã‚¹ã€HTMLå‡ºåŠ›å½¢å¼)
+- **ãƒžãƒ«ãƒã‚¹ãƒ¬ãƒƒãƒ‰**: QThreadä½¿ç”¨ã§UIãƒ–ãƒ­ãƒƒã‚¯å›žé¿
+- **ã‚¨ãƒ©ãƒ¼ãƒãƒ³ãƒ‰ãƒªãƒ³ã‚°**: 3æ®µéšŽã®ãƒ•ã‚¡ã‚¤ãƒ«ä¿å­˜æˆ¦ç•¥
 
-### Žå‚ÈÝŒvƒpƒ^[ƒ“
-- **MVC•ª—£**: UIAƒrƒWƒlƒXƒƒWƒbƒNAƒf[ƒ^ˆ—‚ð•ª—£
-- **ƒVƒOƒiƒ‹/ƒXƒƒbƒg**: Qt”ñ“¯Šú’ÊMƒpƒ^[ƒ“
-- **ƒ[ƒJ[ƒXƒŒƒbƒh**: ’·ŽžŠÔˆ—‚ðƒoƒbƒNƒOƒ‰ƒEƒ“ƒh‚ÅŽÀs
-- **ƒŠƒgƒ‰ƒCƒƒJƒjƒYƒ€**: ƒtƒ@ƒCƒ‹ƒƒbƒNŽž‚ÌŽ©“®ÄŽŽs
+### ä¸»ãªè¨­è¨ˆãƒ‘ã‚¿ãƒ¼ãƒ³
+- **MVCåˆ†é›¢**: UIã€ãƒ“ã‚¸ãƒã‚¹ãƒ­ã‚¸ãƒƒã‚¯ã€ãƒ‡ãƒ¼ã‚¿å‡¦ç†ã‚’åˆ†é›¢
+- **ã‚·ã‚°ãƒŠãƒ«/ã‚¹ãƒ­ãƒƒãƒˆ**: QtéžåŒæœŸé€šä¿¡ãƒ‘ã‚¿ãƒ¼ãƒ³
+- **ãƒ¯ãƒ¼ã‚«ãƒ¼ã‚¹ãƒ¬ãƒƒãƒ‰**: é•·æ™‚é–“å‡¦ç†ã‚’ãƒãƒƒã‚¯ã‚°ãƒ©ã‚¦ãƒ³ãƒ‰ã§å®Ÿè¡Œ
+- **ãƒªãƒˆãƒ©ã‚¤ãƒ¡ã‚«ãƒ‹ã‚ºãƒ **: ãƒ•ã‚¡ã‚¤ãƒ«ãƒ­ãƒƒã‚¯æ™‚ã®è‡ªå‹•å†è©¦è¡Œ
 
 
-## Ý’è‚ÌƒJƒXƒ^ƒ}ƒCƒY
+## è¨­å®šã®ã‚«ã‚¹ã‚¿ãƒžã‚¤ã‚º
 
-`src/core/config.py` ‚ÅˆÈ‰º‚ÌÝ’è‚ð•ÏX‚Å‚«‚Ü‚·F
+`src/core/config.py` ã§ä»¥ä¸‹ã®è¨­å®šã‚’å¤‰æ›´ã§ãã¾ã™ï¼š
 
-- **WinMergeƒpƒX**: ƒJƒXƒ^ƒ€ƒCƒ“ƒXƒg[ƒ‹æ‚ðŽw’è
+- **WinMergeãƒ‘ã‚¹**: ã‚«ã‚¹ã‚¿ãƒ ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«å…ˆã‚’æŒ‡å®š
   ```python
   executable_path: str = r'C:\Program Files\WinMerge\WinMergeU.exe'
   ```
-- **·•ªF**: WinMerge·•ªs‚ÌFƒR[ƒh
+- **å·®åˆ†è‰²**: WinMergeå·®åˆ†è¡Œã®è‰²ã‚³ãƒ¼ãƒ‰
   ```python
   yellow_color: str = 'FFEFCB05'  # WinMerge diff color (yellow)
   ```
-- **ƒRƒ“ƒeƒLƒXƒgs”**: ·•ª‘OŒã‚Ì•\Ž¦s”
+- **ã‚³ãƒ³ãƒ†ã‚­ã‚¹ãƒˆè¡Œæ•°**: å·®åˆ†å‰å¾Œã®è¡¨ç¤ºè¡Œæ•°
   ```python
   context_lines: int = 4
   ```
-- **—ñ•**: Excel—ñ‚Ì•Ý’èi`diff_formats` Ž«‘j
-- **ƒtƒHƒ‹ƒ_ƒL[ƒ[ƒh**: ƒtƒ@ƒCƒ‹–¼’ŠoŽž‚É”FŽ¯‚·‚éƒtƒHƒ‹ƒ_–¼i`_extract_filename_from_stem` ƒƒ\ƒbƒhj
+- **åˆ—å¹…**: Excelåˆ—ã®å¹…è¨­å®šï¼ˆ`diff_formats` è¾žæ›¸ï¼‰
+- **ãƒ•ã‚©ãƒ«ãƒ€ã‚­ãƒ¼ãƒ¯ãƒ¼ãƒ‰**: ãƒ•ã‚¡ã‚¤ãƒ«åæŠ½å‡ºæ™‚ã«èªè­˜ã™ã‚‹ãƒ•ã‚©ãƒ«ãƒ€åï¼ˆ`_extract_filename_from_stem` ãƒ¡ã‚½ãƒƒãƒ‰ï¼‰
 
-## ƒgƒ‰ƒuƒ‹ƒVƒ…[ƒeƒBƒ“ƒO
+## ãƒˆãƒ©ãƒ–ãƒ«ã‚·ãƒ¥ãƒ¼ãƒ†ã‚£ãƒ³ã‚°
 
-### WinMerge‚ªŒ©‚Â‚©‚ç‚È‚¢
+### WinMergeãŒè¦‹ã¤ã‹ã‚‰ãªã„
 ```
 WinMergeNotFoundError: WinMerge not found at ...
 ```
-¨ `src/core/config.py` ‚Ì `winmerge_path` ‚ð³‚µ‚¢ƒpƒX‚ÉÝ’è‚µ‚Ä‚­‚¾‚³‚¢B
+â†’ `src/core/config.py` ã® `winmerge_path` ã‚’æ­£ã—ã„ãƒ‘ã‚¹ã«è¨­å®šã—ã¦ãã ã•ã„ã€‚
 
-### ƒtƒ@ƒCƒ‹‚ª•Û‘¶‚Å‚«‚È‚¢
-o—Íƒtƒ@ƒCƒ‹‚ªŠJ‚©‚ê‚Ä‚¢‚éê‡Aƒ^ƒCƒ€ƒXƒ^ƒ“ƒv•t‚«ƒtƒ@ƒCƒ‹‚ªì¬‚³‚ê‚Ü‚·B
-—á: `output_20250930_143052.xlsx`
+### ãƒ•ã‚¡ã‚¤ãƒ«ãŒä¿å­˜ã§ããªã„
+å‡ºåŠ›ãƒ•ã‚¡ã‚¤ãƒ«ãŒé–‹ã‹ã‚Œã¦ã„ã‚‹å ´åˆã€ã‚¿ã‚¤ãƒ ã‚¹ã‚¿ãƒ³ãƒ—ä»˜ããƒ•ã‚¡ã‚¤ãƒ«ãŒä½œæˆã•ã‚Œã¾ã™ã€‚
+ä¾‹: `output_20250930_143052.xlsx`
 
-### DPIƒXƒP[ƒŠƒ“ƒO–â‘è
-‚DPIŠÂ‹«‚ÅGUI‚ª³‚µ‚­•\Ž¦‚³‚ê‚È‚¢ê‡A`main.py` ‚Ì DPIÝ’è‚ªŽ©“®’²®‚µ‚Ü‚·B
+### DPIã‚¹ã‚±ãƒ¼ãƒªãƒ³ã‚°å•é¡Œ
+é«˜DPIç’°å¢ƒã§GUIãŒæ­£ã—ãè¡¨ç¤ºã•ã‚Œãªã„å ´åˆã€`main.py` ã® DPIè¨­å®šãŒè‡ªå‹•èª¿æ•´ã—ã¾ã™ã€‚
 
-## ŠJ”­
+## é–‹ç™º
 
-### V‹@”\‚Ì’Ç‰Á
-1. ƒRƒAƒƒWƒbƒN ¨ `src/core/`
-2. UI ƒRƒ“ƒ|[ƒlƒ“ƒg ¨ `src/ui/`
-3. ƒtƒ@ƒCƒ‹•ÏŠ· ¨ `src/converters/`
-4. ƒeƒXƒg ¨ `tests/`
-5. ƒhƒLƒ…ƒƒ“ƒg ¨ `docs/`
+### æ–°æ©Ÿèƒ½ã®è¿½åŠ 
+1. ã‚³ã‚¢ãƒ­ã‚¸ãƒƒã‚¯ â†’ `src/core/`
+2. UI ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆ â†’ `src/ui/`
+3. ãƒ•ã‚¡ã‚¤ãƒ«å¤‰æ› â†’ `src/converters/`
+4. ãƒ†ã‚¹ãƒˆ â†’ `tests/`
+5. ãƒ‰ã‚­ãƒ¥ãƒ¡ãƒ³ãƒˆ â†’ `docs/`
 
-### ƒR[ƒhƒXƒ^ƒCƒ‹
-- ‘Š‘ÎƒCƒ“ƒ|[ƒg: ƒpƒbƒP[ƒW“à (`.module`)
-- â‘ÎƒCƒ“ƒ|[ƒg: ƒpƒbƒP[ƒWŠO (`src.package.module`)
-- UTF-8ƒGƒ“ƒR[ƒfƒBƒ“ƒO
-- ‰pŒêƒRƒƒ“ƒg„§
+### ã‚³ãƒ¼ãƒ‰ã‚¹ã‚¿ã‚¤ãƒ«
+- ç›¸å¯¾ã‚¤ãƒ³ãƒãƒ¼ãƒˆ: ãƒ‘ãƒƒã‚±ãƒ¼ã‚¸å†… (`.module`)
+- çµ¶å¯¾ã‚¤ãƒ³ãƒãƒ¼ãƒˆ: ãƒ‘ãƒƒã‚±ãƒ¼ã‚¸å¤– (`src.package.module`)
+- UTF-8ã‚¨ãƒ³ã‚³ãƒ¼ãƒ‡ã‚£ãƒ³ã‚°
+- è‹±èªžã‚³ãƒ¡ãƒ³ãƒˆæŽ¨å¥¨
 
-### ƒeƒXƒgŽÀs
+### ãƒ†ã‚¹ãƒˆå®Ÿè¡Œ
 ```bash
-# \•¶ƒ`ƒFƒbƒN
+# æ§‹æ–‡ãƒã‚§ãƒƒã‚¯
 python -m py_compile main.py
 
-# ƒAƒvƒŠƒP[ƒVƒ‡ƒ“ŽÀs
+# ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³å®Ÿè¡Œ
 python main.py
 ```
 
-## •ÏX—š—ð
+## å¤‰æ›´å±¥æ­´
 
 ### Version 2.1 (2025-10-01)
-- ? ƒV[ƒg–¼‚ðƒtƒ@ƒCƒ‹–¼‚É•ÏXiƒpƒXŒ`Ž®‚©‚ç‰ü‘Pj
-- ? compareƒV[ƒg‚Ìƒtƒ@ƒCƒ‹–¼•\Ž¦‚ðC³
-- ? ³Šm‚Èƒtƒ@ƒCƒ‹–¼’ŠoƒAƒ‹ƒSƒŠƒYƒ€ŽÀ‘•
-- ? ·•ªF‚ÌC³iŠDF¨‰©F `FFEFCB05`j
-- ? SummaryƒV[ƒg‚©‚çƒtƒHƒ‹ƒ_s‚ðœŠO
-- ? ŽÀÛ‚Ì•Û‘¶ƒtƒ@ƒCƒ‹–¼‚ðGUI‚É•\Ž¦
-- ? ƒfƒoƒbƒOƒƒO‚Ì’Ç‰Á
+- ? ã‚·ãƒ¼ãƒˆåã‚’ãƒ•ã‚¡ã‚¤ãƒ«åã«å¤‰æ›´ï¼ˆãƒ‘ã‚¹å½¢å¼ã‹ã‚‰æ”¹å–„ï¼‰
+- ? compareã‚·ãƒ¼ãƒˆã®ãƒ•ã‚¡ã‚¤ãƒ«åè¡¨ç¤ºã‚’ä¿®æ­£
+- ? æ­£ç¢ºãªãƒ•ã‚¡ã‚¤ãƒ«åæŠ½å‡ºã‚¢ãƒ«ã‚´ãƒªã‚ºãƒ å®Ÿè£…
+- ? å·®åˆ†è‰²ã®ä¿®æ­£ï¼ˆç°è‰²â†’é»„è‰² `FFEFCB05`ï¼‰
+- ? Summaryã‚·ãƒ¼ãƒˆã‹ã‚‰ãƒ•ã‚©ãƒ«ãƒ€è¡Œã‚’é™¤å¤–
+- ? å®Ÿéš›ã®ä¿å­˜ãƒ•ã‚¡ã‚¤ãƒ«åã‚’GUIã«è¡¨ç¤º
+- ? ãƒ‡ãƒãƒƒã‚°ãƒ­ã‚°ã®è¿½åŠ 
 
 ### Version 2.0 (2025-09)
-- ? Excel COMˆË‘¶‚ðŠ®‘Síœ
-- ? ƒtƒ@ƒCƒ‹ƒƒbƒN‘Îô‚ÌŽÀ‘•
-- ? ƒvƒƒWƒFƒNƒg\‘¢‚ÌÄ•Ò¬
-- ? ‘ÌÙ‚Ì‰ü‘PicŒrü‚Ì‚ÝAs”Ô†‚Ìu.víœj
-- ? DPIƒXƒP[ƒŠƒ“ƒO‘Î‰ž
-- ? ƒAƒvƒŠƒP[ƒVƒ‡ƒ“ƒtƒŠ[ƒY–â‘è‚ÌC³
+- ? Excel COMä¾å­˜ã‚’å®Œå…¨å‰Šé™¤
+- ? ãƒ•ã‚¡ã‚¤ãƒ«ãƒ­ãƒƒã‚¯å¯¾ç­–ã®å®Ÿè£…
+- ? ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆæ§‹é€ ã®å†ç·¨æˆ
+- ? ä½“è£ã®æ”¹å–„ï¼ˆç¸¦ç½«ç·šã®ã¿ã€è¡Œç•ªå·ã®ã€Œ.ã€å‰Šé™¤ï¼‰
+- ? DPIã‚¹ã‚±ãƒ¼ãƒªãƒ³ã‚°å¯¾å¿œ
+- ? ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ãƒ•ãƒªãƒ¼ã‚ºå•é¡Œã®ä¿®æ­£
 
-Ú×‚Í [`docs/RELEASE_NOTES_v2.0.md`](docs/RELEASE_NOTES_v2.0.md) ‚ðŽQÆ‚µ‚Ä‚­‚¾‚³‚¢B
+è©³ç´°ã¯ [`docs/RELEASE_NOTES_v2.0.md`](docs/RELEASE_NOTES_v2.0.md) ã‚’å‚ç…§ã—ã¦ãã ã•ã„ã€‚
 
-## ƒ‰ƒCƒZƒ“ƒX
+## ãƒ©ã‚¤ã‚»ãƒ³ã‚¹
 
-MIT License - Ú×‚Í[LICENSE](LICENSE)ƒtƒ@ƒCƒ‹‚ðŽQÆ‚µ‚Ä‚­‚¾‚³‚¢B
+MIT License - è©³ç´°ã¯[LICENSE](LICENSE)ãƒ•ã‚¡ã‚¤ãƒ«ã‚’å‚ç…§ã—ã¦ãã ã•ã„ã€‚
 
-## vŒ£
+## è²¢çŒ®
 
-ƒoƒO•ñ‚â‹@”\’ñˆÄ‚Í[Issues](https://github.com/TaisukeOhtsuki/winmerge-diff-exporter/issues)‚Å‚¨Šè‚¢‚µ‚Ü‚·B
+ãƒã‚°å ±å‘Šã‚„æ©Ÿèƒ½ææ¡ˆã¯[Issues](https://github.com/TaisukeOhtsuki/winmerge-diff-exporter/issues)ã§ãŠé¡˜ã„ã—ã¾ã™ã€‚
 
-ƒvƒ‹ƒŠƒNƒGƒXƒg‚àŠ½Œ}‚µ‚Ü‚·I
+ãƒ—ãƒ«ãƒªã‚¯ã‚¨ã‚¹ãƒˆã‚‚æ­“è¿Žã—ã¾ã™ï¼
 
-## ŽÓŽ«
+## è¬è¾ž
 
-‚±‚Ìƒ\ƒtƒgƒEƒFƒA‚Í[winmerge_xlsx](https://github.com/y-tetsu/winmerge_xlsx.git)‚ÌƒR[ƒh‚ðƒx[ƒX‚ÉŠJ”­‚³‚ê‚Ü‚µ‚½B
+ã“ã®ã‚½ãƒ•ãƒˆã‚¦ã‚§ã‚¢ã¯[winmerge_xlsx](https://github.com/y-tetsu/winmerge_xlsx.git)ã®ã‚³ãƒ¼ãƒ‰ã‚’ãƒ™ãƒ¼ã‚¹ã«é–‹ç™ºã•ã‚Œã¾ã—ãŸã€‚
 
-## ìŽÒ
+## ä½œè€…
 
 **TaisukeOhtsuki** - [GitHub](https://github.com/TaisukeOhtsuki)
 
 ---
 
-? ‚±‚ÌƒvƒƒWƒFƒNƒg‚ª–ð‚É—§‚Á‚½‚çAƒXƒ^[‚ð‚¨Šè‚¢‚µ‚Ü‚·I
+? ã“ã®ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆãŒå½¹ã«ç«‹ã£ãŸã‚‰ã€ã‚¹ã‚¿ãƒ¼ã‚’ãŠé¡˜ã„ã—ã¾ã™ï¼
