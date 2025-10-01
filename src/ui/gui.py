@@ -113,7 +113,9 @@ class Worker(QObject):
                 log_callback=log_callback
             )
             diff.generate()
-            self.emit_log(f"Completed! Output: {self.output}", 100)
+            # Use the actual output path (may have been changed if file was locked)
+            actual_output = diff.output
+            self.emit_log(f"Completed! Output: {actual_output.name}", 100)
         except Exception as e:
             error_msg = str(e)
             logger.error(f"Worker thread error: {error_msg}", exc_info=True)

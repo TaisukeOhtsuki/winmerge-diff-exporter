@@ -207,7 +207,8 @@ class HTMLToExcelConverter:
             tables = soup.find_all('table')
             
             if tables:
-                self._convert_table_to_sheet(tables[0], ws)
+                # Use special method for summary sheet to filter folder rows
+                self._convert_summary_table_to_sheet(tables[0], ws)
                 self.log("Converted summary HTML to Excel")
             else:
                 logger.warning(f"No tables found in summary HTML: {html_path}")
@@ -216,3 +217,57 @@ class HTMLToExcelConverter:
             logger.error(f"Failed to convert summary HTML: {e}", exc_info=True)
         
         return wb
+    
+    def _convert_summary_table_to_sheet(self, table, ws) -> None:
+        """Convert summary HTML table to Excel worksheet, skipping folder rows"""
+        row_idx = 1
+        
+        # Process table rows
+        for tr in table.find_all('tr'):
+            # Check if this is a folder row (skip folders in summary sheet)
+            cells = tr.find_all(['th', 'td'])
+            if len(cells) >= 1:
+                first_cell = cells[0]
+                # Check if row has a link (files have links, folders don't)
+                has_link = first_cell.find('a') is not None
+                is_header = first_cell.name == 'th'
+                
+                # Skip rows without links that are not headers (folder rows)
+                if not has_link and not is_header:
+                    continue
+            
+            col_idx = 1
+            
+            # Process cells (th or td)
+            for cell in tr.find_all(['th', 'td']):
+                # Get cell text
+                cell_text = cell.get_text(strip=True)
+                
+                # Remove "." from line number columns (columns 1 and 2)
+                if col_idx in [1, 2] and cell_text == '.':
+                    cell_text = ''
+                
+                # Write to Excel
+                excel_cell = ws.cell(row=row_idx, column=col_idx, value=cell_text)
+                
+                # Apply basic styling based on HTML attributes
+                self._apply_cell_styling(excel_cell, cell)
+                
+                # Handle colspan and rowspan
+                colspan = int(cell.get('colspan', 1))
+                rowspan = int(cell.get('rowspan', 1))
+                
+                if colspan > 1 or rowspan > 1:
+                    ws.merge_cells(
+                        start_row=row_idx,
+                        start_column=col_idx,
+                        end_row=row_idx + rowspan - 1,
+                        end_column=col_idx + colspan - 1
+                    )
+                
+                col_idx += colspan
+            
+            row_idx += 1
+        
+        # Auto-adjust column widths
+        self._auto_adjust_columns(ws)
